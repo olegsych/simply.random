@@ -1,0 +1,45 @@
+# CI build definition for https://ci.appveyor.com/project/olegsych/simply-random
+# To learn more, see http://www.appveyor.com/docs/appveyor-yml
+
+version: 0.1.{build}
+
+pull_requests:
+  do_not_increment_build_number: true
+
+branches:
+  only:
+  - master
+
+skip_tags: true
+
+os: Visual Studio 2015
+
+build_script:
+- set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
+- nuget restore
+- msbuild simply.random.sln /m /p:Platform=x86 /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+- msbuild simply.random.sln /m /p:Platform=x64 /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+
+test_script:
+- vstest.console bin\debug\Win32\test.dll /Platform:x86 /logger:Appveyor
+- vstest.console bin\debug\x64\test.dll /Platform:x64 /logger:Appveyor /inIsolation
+
+after_test:
+- nuget pack "src\simply.random.nuspec" -BasePath "src" -OutputDirectory "bin\debug" -Properties "version=%appveyor_build_version%"
+
+artifacts:
+- path: bin\debug\*.nupkg
+
+deploy:
+- provider: NuGet
+  api_key:
+    secure: MllAarE5OQzLPrMNz2oSYIv2A197InquS37HPJ37FyFqrS7WQ1IroGaKol+LCBLG
+  skip_symbols: true
+- provider: GitHub
+  auth_token:
+    secure: qRNM/Z+a//xh4J+/X9n2eni+pbzBicTAnPZd8zn3H94V6RRCQ4SQtcRBYl1nP+7U
+  artifact: /.*\.nupkg/
+
+nuget:
+  project_feed: true
+  disable_publish_on_pr: true
