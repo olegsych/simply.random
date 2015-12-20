@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<package>
+  <metadata>
+    <id>simply.random</id>
+    <version>$version$</version>
+    <title>simply::random</title>
+    <description>A small C++ library for generating random values of different types.</description>
+    <projectUrl>https://github.com/olegsych/simply.random</projectUrl>
+    <licenseUrl>https://github.com/olegsych/simply.random/blob/master/LICENSE</licenseUrl>
+    <authors>Oleg Sych</authors>
+    <copyright>© 2015 Oleg Sych</copyright>
+    <tags>C++ native</tags>
+  </metadata>
+  <files>
+    <file src="*.targets" target="build\native\" />
+    <file src="simply\**\*.h" target="build\native\simply\" />
+  </files>
+</package>
