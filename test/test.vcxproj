@@ -41,8 +41,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="engine_test.cpp" />
-    <ClCompile Include="numeric_test.cpp" />
+    <ClCompile Include="*.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
