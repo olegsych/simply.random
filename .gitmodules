@@ -1,0 +1,6 @@
+[submodule "modules/simply.assert"]
+	path = modules/simply.assert
+	url = https://github.com/olegsych/simply.assert.git
+[submodule "modules/simply.utility"]
+	path = modules/simply.utility
+	url = https://github.com/olegsych/simply.utility.git
